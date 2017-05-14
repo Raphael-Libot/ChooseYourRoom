@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+    <cron>
+    <url>/add</url>
+    <description>Ajout des creneaux</description>
+    <schedule>every day 02:00</schedule>
+	</cron>
+	<cron>
+    <url>/suppression</url>
+    <description>Suppression des creneaux</description>
+    <schedule>every day 01:00</schedule>
+	</cron>
+</cronentries>

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- The HTML 4.01 Transitional DOCTYPE declaration-->
+<!-- above set at the top of the file will set     -->
+<!-- the browser's rendering engine into           -->
+<!-- "Quirks Mode". Replacing this declaration     -->
+<!-- with a "Standards Mode" doctype is supported, -->
+<!-- but may lead to some differences in layout.   -->
+
+<html ng-app="chooseYourRoom">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>CYR</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+	<script src="js/app.js"></script>
+	<script src="https://apis.google.com/js/client.js?onload=init"></script>
+  </head>
+
+  <body ng-controller="MainCtrl">
+  
+    <p>Hello {{name}}!</p>
+    {{data}}
+    <h1>CYR V1 --------------------</h1>
+	<!-- {{items}} -->
+	
+	<script type="text/javascript">  
+	/*function httpGet(theUrl)
+	  {
+	      var xmlHttp = new XMLHttpRequest();
+	      xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+	      xmlHttp.send( null );
+	      return xmlHttp.responseText;
+	  }
+	console.log("coucou");
+	  data = httpGet("https://proweb-158114.appspot.com/_ah/api/creneauentityendpoint/v1/creneauentity");
+	  console.log(data);
+	  document.getElementById('demo').innerHTML ="la et pas la";*/ </script>
+
+	
+    <table>
+      <tr>
+        <td colspan="2" style="font-weight:bold;">Available Servlets:</td>        
+      </tr>
+      <tr>
+        <td><a href="add">ChooseYourRoom</a></td>
+        <td><a href="suppression">Suppression</a></td>
+        <td><a href="list">list</a></td>
+      </tr>
+    </table>
+    <p id="demo"></p>
+  </body>
+</html>

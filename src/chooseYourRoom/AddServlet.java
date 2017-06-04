@@ -104,17 +104,9 @@ public class AddServlet extends HttpServlet {
         	}else if (s.startsWith("DTSTART")) {
         			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmssZ", Locale.FRANCE);
         			dateDebut = simpleDateFormat.parse(s.split(":")[1].replaceAll("Z$", "+0000"));
-        			/*c = Calendar.getInstance(); 
-        			c.setTime(dateDebut); 
-        			c.add(Calendar.HOUR, 2);
-        			dateDebut = c.getTime();*/
             }else if (s.startsWith("DTEND")) {
                 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmssZ",Locale.FRANCE);
 					dateFin = simpleDateFormat.parse(s.split(":")[1].replaceAll("Z$", "+0000"));
-					/*c = Calendar.getInstance();
-        			c.setTime(dateFin); 
-        			c.add(Calendar.HOUR, 2);
-        			dateFin = c.getTime();*/
             }else if(s.startsWith("UID")) {
                 	id = s.replaceFirst("^[a-zA-Z0-9_]+:", "");
             }else if(s.startsWith("SUMMARY")) {
@@ -122,7 +114,6 @@ public class AddServlet extends HttpServlet {
             }else if(s.startsWith("LOCATION")) {
                 	salle = this.listeSalles.get(IdCalendar);
             }else if(s.startsWith("DESCRIPTION")) {
-                	//description = new Text(s.replaceFirst("^[a-zA-Z0-9_]+:", ""));
             }else if(s.startsWith("CATEGORIES")) {
             } else if (s.startsWith("END")) {
                 	if (dateDebut.after(new Date()) || dateDebut.equals(new Date()) ){

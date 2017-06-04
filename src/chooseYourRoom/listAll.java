@@ -22,8 +22,10 @@ public class listAll extends HttpServlet {
 		CollectionResponse<CreneauEntity> a = null;
 		a = cee.listCreneauEntity(null, 5);
 		CreneauEntity ce = new CreneauEntity();
-		ce = (CreneauEntity) a.getItems().toArray()[1];
-		resp.getWriter().println(ce.getNom());
+		for(int i = 0; i < a.getItems().size(); i++){
+			ce = (CreneauEntity) a.getItems().toArray()[i];
+			resp.getWriter().println(ce.getNom());
+		}
 	}
 
 }

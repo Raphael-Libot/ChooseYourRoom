@@ -4,6 +4,7 @@ import entity.PMF;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
+import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
@@ -14,6 +15,7 @@ import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.datanucleus.query.JDOCursorHelper;
 
 import java.sql.Date;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -241,8 +243,15 @@ public class CreneauEntityEndpoint {
 		return CollectionResponse.<CreneauEntity>builder().setItems(execute).build();
 	}
 	
-	@ApiMethod(name = "listeSalleLibres")
-	public CollectionResponse<String> listeSalleLibres(@Named("date") java.util.Date date) {
+	//2017-05-31T11:00:00
+	//@ApiMethod(name = "listeSalleLibres")
+	
+	
+	@ApiMethod(
+	        path = "listeSalleLibres/{date}",
+	        httpMethod = HttpMethod.GET
+	    )
+	public CollectionResponse<String> listeSalleLibres(@Named("date") String date) throws ParseException {
 
 		PersistenceManager mgr = null;
 
@@ -250,7 +259,10 @@ public class CreneauEntityEndpoint {
 		ArrayList<String> tmp = new ArrayList<String>();
 		ArrayList<String> res = new ArrayList<String>(this.listeSalles);
 		
-		java.util.Date nd = date;
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		java.util.Date nd = formatter.parse(date);
+		
+		//java.util.Date nd = date;
 		Calendar c = Calendar.getInstance(); 
 		c.setTime(nd); 
 		c.add(Calendar.HOUR_OF_DAY, -2);
@@ -280,4 +292,50 @@ public class CreneauEntityEndpoint {
 		
 		return CollectionResponse.<String>builder().setItems(res).build();
 	}
+	
+	
+	@ApiMethod(
+	        path = "listeSalleOccupees/{date}",
+	        httpMethod = HttpMethod.GET
+	    )
+	public CollectionResponse<String> listeSalleOccupees(@Named("date") String date) throws ParseException {
+
+		PersistenceManager mgr = null;
+
+		List<CreneauEntity> execute = null;
+		ArrayList<String> tmp = new ArrayList<String>();
+		
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		java.util.Date nd = formatter.parse(date);
+		
+		//java.util.Date nd = date;
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(nd); 
+		c.add(Calendar.HOUR_OF_DAY, -2);
+		nd = c.getTime(); 
+		
+		try {
+			
+			mgr = getPersistenceManager();
+			Query query = mgr.newQuery(CreneauEntity.class);
+			query.setFilter("dateDebut <= :aujourdui"); 
+			execute = (List<CreneauEntity>) query.execute(nd);
+			
+			for(int i = 0; i < execute.size(); i++)
+			{
+				if(execute.get(i).getDateFin().after(nd)|| execute.get(i).getDateFin().equals(nd))
+				{
+					tmp.add(execute.get(i).getSalle());
+				}
+			}
+			
+		} finally {
+			mgr.close();
+		}
+		
+		return CollectionResponse.<String>builder().setItems(tmp).build();
+	}
+	
+	
+	
 }

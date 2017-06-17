@@ -15,15 +15,18 @@ public class SuppressionServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
 		resp.setContentType("text/plain");
-		resp.getWriter().println("Coucou");
 		
         com.google.appengine.api.datastore.DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         Query q = new Query("CreneauEntity");
         PreparedQuery pq = datastore.prepare(q);
-        for (Entity result : pq.asIterable()) {   
-        	datastore.delete(result.getKey());
-        	resp.getWriter().println("-----SUPPRESSION------");
-     }
+        for (Entity result : pq.asIterable()) { 
+        	if(!result.getKey().toString().contains("@")){
+        		datastore.delete(result.getKey());
+        		resp.getWriter().println("-----SUPPRESSION------" + result.getKey().toString());
+        	}else{
+        		resp.getWriter().println("-----GARDER------" + result.getKey().toString());
+        	}
+        }
      
 	}
 }

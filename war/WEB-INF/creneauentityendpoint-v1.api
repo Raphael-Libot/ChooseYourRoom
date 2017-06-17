@@ -28,6 +28,27 @@
   "ownerName" : "mycompany.com",
   "packagePath" : "services",
   "methods" : {
+    "creneauentityendpoint.getCreneauEntity" : {
+      "path" : "creneauentity/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "entity.CreneauEntityEndpoint.getCreneauEntity",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "creneauentityendpoint.insertCreneauEntity" : {
       "path" : "creneauentity",
       "httpMethod" : "POST",
@@ -117,27 +138,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "creneauentityendpoint.creneauEntityEndpoint.listeSalleOccupees" : {
-      "path" : "listeSalleOccupees/{date}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "entity.CreneauEntityEndpoint.listeSalleOccupees",
-      "request" : {
-        "parameters" : {
-          "date" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "creneauentityendpoint.listCreneauEntity" : {
       "path" : "creneauentity",
       "httpMethod" : "GET",
@@ -163,17 +163,75 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "creneauentityendpoint.getCreneauEntity" : {
-      "path" : "creneauentity/{id}",
+    "creneauentityendpoint.creneauEntityEndpoint.listeSalleLibresCreneau" : {
+      "path" : "listeSalleLibrescreneau/{date}/{creneau}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "entity.CreneauEntityEndpoint.getCreneauEntity",
+      "rosyMethod" : "entity.CreneauEntityEndpoint.listeSalleLibresCreneau",
       "request" : {
         "parameters" : {
-          "id" : {
+          "date" : {
+            "type" : "string",
+            "required" : true
+          },
+          "creneau" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "creneauentityendpoint.creneauEntityEndpoint.listeSalleOccupees" : {
+      "path" : "listeSalleOccupees/{date}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "entity.CreneauEntityEndpoint.listeSalleOccupees",
+      "request" : {
+        "parameters" : {
+          "date" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "creneauentityendpoint.creneauEntityEndpoint.insertCreneau" : {
+      "path" : "insertCreneau/{date}/{salle}/{creneau}/{email}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "entity.CreneauEntityEndpoint.insertCreneau",
+      "request" : {
+        "parameters" : {
+          "date" : {
+            "type" : "string",
+            "required" : true
+          },
+          "salle" : {
+            "type" : "string",
+            "required" : true
+          },
+          "creneau" : {
+            "type" : "string",
+            "required" : true
+          },
+          "email" : {
             "type" : "string",
             "required" : true
           }
@@ -208,15 +266,9 @@
           "salle" : {
             "type" : "string"
           },
-          "creneauEntityBuilder" : {
-            "$ref" : "CreneauEntityBuilder"
+          "creneau" : {
+            "type" : "string"
           }
-        }
-      },
-      "CreneauEntityBuilder" : {
-        "id" : "CreneauEntityBuilder",
-        "type" : "object",
-        "properties" : {
         }
       },
       "CollectionResponse_CreneauEntity" : {
@@ -251,6 +303,11 @@
       }
     },
     "methods" : {
+      "entity.CreneauEntityEndpoint.getCreneauEntity" : {
+        "response" : {
+          "$ref" : "CreneauEntity"
+        }
+      },
       "entity.CreneauEntityEndpoint.insertCreneauEntity" : {
         "request" : {
           "$ref" : "CreneauEntity"
@@ -279,17 +336,22 @@
           "$ref" : "CollectionResponse_String"
         }
       },
-      "entity.CreneauEntityEndpoint.listeSalleOccupees" : {
-        "response" : {
-          "$ref" : "CollectionResponse_String"
-        }
-      },
       "entity.CreneauEntityEndpoint.listCreneauEntity" : {
         "response" : {
           "$ref" : "CollectionResponse_CreneauEntity"
         }
       },
-      "entity.CreneauEntityEndpoint.getCreneauEntity" : {
+      "entity.CreneauEntityEndpoint.listeSalleLibresCreneau" : {
+        "response" : {
+          "$ref" : "CollectionResponse_String"
+        }
+      },
+      "entity.CreneauEntityEndpoint.listeSalleOccupees" : {
+        "response" : {
+          "$ref" : "CollectionResponse_String"
+        }
+      },
+      "entity.CreneauEntityEndpoint.insertCreneau" : {
         "response" : {
           "$ref" : "CreneauEntity"
         }

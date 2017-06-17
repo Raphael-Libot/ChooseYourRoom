@@ -117,10 +117,20 @@ public class AddServlet extends HttpServlet {
             }else if(s.startsWith("CATEGORIES")) {
             } else if (s.startsWith("END")) {
                 	if (dateDebut.after(new Date()) || dateDebut.equals(new Date()) ){
-                	CreneauEntity creneauEntity = new CreneauEntity(id,nom,dateDebut,dateFin,/*description,*/salle);
-                	/*CreneauEntity creneauEntity = new CreneauEntity().Builder().id(id).nom(nom).dateDebut(dateDebut).dateFin(dateFin).description(description).salle(salle).reserve(false).build();*/
-                	pm.makePersistent(creneauEntity);
-                	resp.getWriter().println("-----ok------");
+                		resp.getWriter().println(dateDebut);
+                		resp.getWriter().println(dateFin);
+                		int nbCreneau = getCreneau(resp,dateDebut,dateFin);
+                		int premierCreneau = getPremierCreaneau(resp,dateDebut);
+                		
+                		for (int i = 0; i<nbCreneau; i++) 
+                		{
+                			int creaneau = premierCreneau+i;
+                			String idi = id;
+                			idi = idi +" c" + i;
+                		CreneauEntity creneauEntity = new CreneauEntity(idi,nom,dateDebut,dateFin,/*description,*/salle,""+creaneau);   	
+	                	pm.makePersistent(creneauEntity);
+	                	resp.getWriter().println("-----ok------ creneau" + creaneau);
+	                	}
                 	}
                 }
         	}    
@@ -131,11 +141,75 @@ public class AddServlet extends HttpServlet {
 		}
 	}
 	
-	private String findSalle (String idSalle){
+	private int getCreneau(HttpServletResponse resp,Date dateDebut, Date dateFin) throws IOException{
 		
+		Calendar cal1 = Calendar.getInstance();
+		cal1.setTime(dateDebut);  
 		
+		Calendar cal2 = Calendar.getInstance();
+		cal2.setTime(dateFin); 
+
+
+		double diffMillis = Math.abs(cal2.getTimeInMillis() - cal1.getTimeInMillis());
+		resp.getWriter().println(""+diffMillis);
 		
-		return "";
+		double nbCreneau = Math.ceil(diffMillis/5400000);
+		resp.getWriter().println(""+nbCreneau);
+		
+		int retour = (int) Math.round(nbCreneau);
+		/*
+		if (!((cal1.get(Calendar.HOUR_OF_DAY) != 8
+				|| cal1.get(Calendar.HOUR_OF_DAY) != 9 && cal1.get(Calendar.MINUTE) != 30
+				|| cal1.get(Calendar.HOUR_OF_DAY) != 11
+				|| cal1.get(Calendar.HOUR_OF_DAY) != 12 && cal1.get(Calendar.MINUTE) != 30
+				|| cal1.get(Calendar.HOUR_OF_DAY) != 14
+				|| cal1.get(Calendar.HOUR_OF_DAY) != 15 && cal1.get(Calendar.MINUTE) != 30
+				|| cal1.get(Calendar.HOUR_OF_DAY) != 17
+				|| cal1.get(Calendar.HOUR_OF_DAY) != 18 && cal1.get(Calendar.MINUTE) != 30)
+				|| 
+				(cal2.get(Calendar.HOUR_OF_DAY) != 9 && cal2.get(Calendar.MINUTE) != 20
+						|| cal2.get(Calendar.HOUR_OF_DAY) != 10 && cal2.get(Calendar.MINUTE) != 50
+						|| cal2.get(Calendar.HOUR_OF_DAY) != 12 && cal2.get(Calendar.MINUTE) != 20
+						|| cal2.get(Calendar.HOUR_OF_DAY) != 13 && cal2.get(Calendar.MINUTE) != 50
+						|| cal2.get(Calendar.HOUR_OF_DAY) != 15 && cal2.get(Calendar.MINUTE) != 20
+						|| cal2.get(Calendar.HOUR_OF_DAY) != 16 && cal2.get(Calendar.MINUTE) != 50
+						|| cal2.get(Calendar.HOUR_OF_DAY) != 18 && cal2.get(Calendar.MINUTE) != 20
+						|| cal2.get(Calendar.HOUR_OF_DAY) != 19 && cal2.get(Calendar.MINUTE) != 50)
+
+		)) {
+			retour++;
+		}*/
+		
+		return retour;
+
+	}
+	
+	public int getPremierCreaneau(HttpServletResponse resp,Date dateDebut) throws IOException{
+		
+		Calendar cal1 = Calendar.getInstance();
+		cal1.setTime(dateDebut);  
+		
+		int hour = cal1.get(Calendar.HOUR_OF_DAY);
+		int minute = cal1.get(Calendar.MINUTE);
+
+		if( ( hour >= 8 && minute >= 0 ) && ( hour<=9 && minute<=20 ) )
+			return 1;
+		else if( ( hour >= 9 && minute >= 30 ) && ( hour <= 10 && minute <= 50 ) )
+			return 2;
+		else if( ( hour >= 11 && minute >= 0 ) && ( hour <= 12 && minute <= 20 ) )
+			return 3;
+		else if( ( hour >= 12 && minute >= 30 ) && ( hour <= 13 && minute <= 50 ) )
+			return 4;
+		else if( ( hour >= 14 && minute >= 0 ) && ( hour <= 15 && minute <= 20 ) )
+			return 5;
+		else if( ( hour >= 15 && minute >= 30 ) && ( hour <= 16 && minute <= 50 ) )
+			return 6;
+		else if( ( hour >= 17 && minute >= 0 ) && ( hour <= 18 && minute <= 20 ) )
+			return 7;
+		else if( ( hour >= 18 && minute >= 20 ) && ( hour <= 19 && minute <= 50 ) )
+			return 8;
+		
+		return 0;
 	}
 	
 	private void peupleListeSAlle(){

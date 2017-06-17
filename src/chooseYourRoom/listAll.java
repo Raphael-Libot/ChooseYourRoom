@@ -17,7 +17,7 @@ public class listAll extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
 		resp.getWriter().println(new java.util.Date().toString());
-
+/*
 		CreneauEntityEndpoint cee = new CreneauEntityEndpoint();
 		CollectionResponse<CreneauEntity> a = null;
 		a = cee.listCreneauEntity(null, 5);
@@ -26,6 +26,6 @@ public class listAll extends HttpServlet {
 			ce = (CreneauEntity) a.getItems().toArray()[i];
 			resp.getWriter().println(ce.getNom());
 		}
-	}
+*/	}
 
 }

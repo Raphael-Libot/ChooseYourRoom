@@ -1,99 +1,125 @@
 //,'ngMaterial', 'ngMessages'
 var app = angular.module('chooseYourRoom', ['ngRoute', 'angular-loading-bar']);
 
-app.controller('MainCtrl', function($scope,$http) {
-  
-	this.myDate = new Date();
-	  this.isOpen = false;
-	
-	$scope.name = 'world';
-	$scope.infoO = "";
-	$scope.sallesLibresF = "";
-	$scope.infoLF="Test";
-	
-  
-  $http({
-		  url: 'https://proweb-158114.appspot.com/_ah/api/creneauentityendpoint/v1/listeSalleLibres/2017-06-06T12%3A30%3A00',
-		  method: 'GET'
-	}).then(function successCallback(response) {
-		
-		if(angular.isUndefined(response)){
-			$scope.infoL =  "Pas de salle libres";
-		}else{
-			$scope.sallesLibres = response;
-			$scope.infoL = "Il y a " +  response.data.items.length + " salles libres";
-		}
-		
-	  }, function errorCallback(response) {
-		  $scope.infoL = 'non !';
-	  });
-  /*
-  $http({
-	  url: 'https://proweb-158114.appspot.com/_ah/api/creneauentityendpoint/v1/listeSalleOccupees/2017-06-06T12%3A30%3A00',
-	  method: 'GET'
-	}).then(function successCallback(response) {
-		
-		if(angular.isUndefined(response)){
-			$scope.infoO = "Toutes les salles sont libres";
-		}else{
-			$scope.salleOccupees = response;
-			$scope.infoO = "Il y a " +  response.data.items.length + " salles occupées";
-		}
-		
-	    
-	  }, function errorCallback(response) {
-		  $scope.infoO = 'non !';
-	  });*/
-  
-  //var userNameInput = element(by.model('date'));
-  
-  $scope.rechercheSalle = function() {
-	  
-	 
-		var url = 'https://proweb-158114.appspot.com/_ah/api/creneauentityendpoint/v1/listeSalleLibres/' + $scope.annee + "-" + $scope.mois + "-"+ $scope.jour + "T"
-	  + $scope.heure + "%3A" + $scope.minute + "%3A00";
-		
-	  $http({
-		  url: url,
-		  method: 'GET'
-	}).then(function successCallback(response) {
-		//window.alert(response.data.items.length);
-		if(angular.isUndefined(response)){
-			$scope.sallesLibresF = "";
-			$scope.infoLF = "Pas de salle libres";
-		}else{
-			$scope.sallesLibresF = response;
-			$scope.infoLF = "Il y a " +  response.data.items.length + " salles libres";
-		}
-	  }, function errorCallback(response) {
-		  
-		  $scope.infoLF = "non !";
-	  });
-	  
-	  /*
-	  var url2 = 'https://proweb-158114.appspot.com/_ah/api/creneauentityendpoint/v1/listeSalleOccupees/' + $scope.annee + "-" + $scope.mois + "-"+ $scope.jour + "T"
-	  + $scope.heure + "%3A" + $scope.minute + "%3A00";
-	 
-	$http({
-	  url: url2,
-	  method: 'GET'
-	}).then(function successCallback(response) {
-		//$scope.infoO = 'test ! ' + angular.isUndefined(response) + response.data.items.length;
-		if(angular.isUndefined(response)){
-			$scope.salleOccupees = "";
-			$scope.infoO = "Toutes les salles sont libres";
-		}else{
-			$scope.salleOccupees = response;
-			$scope.infoO = "Il y a " +  response.data.items.length + " salles occupées";
-		}
-	  }, function errorCallback(response) {
-		  
-		  $scope.infoO = 'non !';
-	  });*/
-	  
-  };
+app.controller('MainCtrl', function($scope, $http) {
 
-  //2017-06-06T12%3A30%3A00
-  //2017-06-10T12%3A30%3A00
-  // response.data.items.length
+
+    var creneau;
+    var moisPropre;
+    var jourPropre;
+    var creneau;
+
+    this.myDate = new Date();
+    this.isOpen = false;
+
+    $scope.name = 'world';
+    $scope.infoO = "";
+    $scope.sallesLibresF = "";
+    $scope.infoLF = "Test";
+
+    var ladate = new Date();
+
+    var creneau;
+    var heureActuelle = ladate.getHours();
+    var minuteActuelle = ladate.getMinutes();
+    minuteActuelle = minuteActuelle / 100;
+    heureActuelle = heureActuelle + minuteActuelle;
+
+    if (heureActuelle >= 8 && heureActuelle <= 9.29)
+        creneau = 1;
+    else if (heureActuelle >= 9.30 && heureActuelle <= 10.59)
+        creneau = 2;
+    else if (heureActuelle >= 11 && heureActuelle <= 12.29)
+        creneau = 3;
+    else if (heureActuelle >= 12.30 && heureActuelle <= 13.59)
+        creneau = 4;
+    else if (heureActuelle >= 14 && heureActuelle <= 15.29)
+        creneau = 5;
+    else if (heureActuelle >= 15.30 && heureActuelle <= 16.59)
+        creneau = 6;
+    else if (heureActuelle >= 17 && heureActuelle <= 18.29)
+        creneau = 7;
+    else if (heureActuelle >= 18.30 && heureActuelle <= 20)
+        creneau = 8;
+
+
+    $http({
+        url: 'https://proweb-158114.appspot.com/_ah/api/creneauentityendpoint/v1/listeSalleLibrescreneau/' + ladate.getFullYear() + "_" + (ladate.getMonth() + 1) + "_" + ladate.getDate() + '/' + creneau,
+        method: 'GET'
+    }).then(function successCallback(response) {
+
+        if (angular.isUndefined(response)) {
+            $scope.infoL = "Pas de salle libres";
+        } else {
+            $scope.sallesLibres = response;
+            $scope.infoL = "Il y a " + response.data.items.length + " salles libres";
+        }
+
+    }, function errorCallback(response) {
+        $scope.infoL = 'non !';
+    });
+
+
+    $scope.rechercheSalle = function() {
+        creneau = $scope.creneau;
+        creneau = creneau.charAt(0);
+        moisPropre = $scope.mois;
+        moisPropre = moisPropre.replace("0", "");
+        jourPropre = $scope.jour;
+        jourPropre = jourPropre.replace("0", "");
+
+        var url = 'https://proweb-158114.appspot.com/_ah/api/creneauentityendpoint/v1/listeSalleLibrescreneau/' + $scope.annee + "_" + moisPropre + "_" + jourPropre + "/" + creneau;
+        alert(url);
+        $http({
+            url: url,
+            method: 'GET'
+        }).then(function successCallback(response) {
+            if (angular.isUndefined(response)) {
+                $scope.sallesLibresF = "";
+                $scope.infoLF = "Pas de salle libres";
+            } else {
+                $scope.sallesLibresF = response;
+                $scope.infoLF = "Il y a " + response.data.items.length + " salles libres";
+            }
+        }, function errorCallback(response) {
+
+            $scope.infoLF = "non !";
+        });
+    };
+
+ 
+
+    $scope.reserver = function(salle) {
+        moisPropre = $scope.mois;
+        jourPropre = $scope.jour;
+
+        creneau = document.getElementById('creneau');
+        creneau = creneau.options[creneau.selectedIndex].text;
+        creneau = creneau.charAt(0);
+
+        profile = document.getElementById('email').innerHTML;
+        //console.log('Full Name: ' + salle + " " + $scope.annee + "_" + moisPropre + "_" + jourPropre + " " + profile + " " + creneau);
+
+
+        date = $scope.annee + "_" + moisPropre + "_" + jourPropre;
+
+        urlinsert =  'https://proweb-158114.appspot.com/_ah/api/creneauentityendpoint/v1/insertCreneau/' + date + '/' + salle + '/' + creneau + '/' + profile;
+        
+        $http({
+            url: urlinsert,
+            method: 'GET'
+        }).then(function successCallback(response) {
+
+            if (angular.isUndefined(response)) {
+                alert("bug");
+            } else {
+                alert("ok");
+            }
+
+        }, function errorCallback(response) {
+            alert("error call back");
+        });
+
+    };
+
 });

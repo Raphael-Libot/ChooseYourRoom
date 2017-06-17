@@ -2,203 +2,218 @@
 
 <!DOCTYPE HTML>
 <html ng-app="chooseYourRoom">
-   <head>
-      <meta charset="utf-8" />
-      <title>CYR</title>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-      <script src="js/app.js"></script>
-      <script src="https://apis.google.com/js/client.js?onload=init"></script>
-      <link rel="stylesheet" href="assets/css/main.css" />
-      <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
-	  <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
-   </head>
-   <body ng-controller="MainCtrl" >
-      <!-- Sidebar -->
-      <section id="sidebar">
-         <div class="inner">
-            <nav>
-               <ul>
-                  <li><a href="#intro">Welcome</a></li>
-                  <li><a href="#one">Rechercher une salle</a></li>
-               </ul>
-            </nav>
-         </div>
-      </section>
-      <!-- Wrapper -->
-      <div id="wrapper">
-         <!-- Intro -->
-         <section id="intro" class="wrapper style1 fullscreen fade-up">
-            <div class="inner">
-               <h1>Choose Your ROOM  {{info}} </h1>
-               <div class="col-lg-12">
-                     <h2>Salles Libres Actullement</h2>
-                     <div class="row">
-                        <div class="col-6 col-lg-4" ng-repeat="salleL in sallesLibres.data.items">
-                           <h3>{{salleL}}</h3>
-                        </div>
-                     </div>
-                     <p>{{infoL}}</p>
-                  </div>
-            </div>
-         </section>
-         <!-- One -->
-         <section id="one" class="wrapper style2 spotlights">
-               <div class="inner">
-               	<div class="col-lg-12 text-center">
-                  <div class="row">
-                     <div>
-                     	<div class="input-group">
-			  			<span class="input-group-addon">Jour</span>
-                        <select ng-model="jour">
-                           <option>01</option>
-                           <option>02</option>
-                           <option>03</option>
-                           <option>04</option>
-                           <option>05</option>
-                           <option>06</option>
-                           <option>07</option>
-                           <option>08</option>
-                           <option>09</option>
-                           <option>10</option>
-                           <option>11</option>
-                           <option>12</option>
-                           <option>13</option>
-                           <option>14</option>
-                           <option>15</option>
-                           <option>16</option>
-                           <option>17</option>
-                           <option>18</option>
-                           <option>19</option>
-                           <option>20</option>
-                           <option>21</option>
-                           <option>22</option>
-                           <option>23</option>
-                           <option>24</option>
-                           <option>25</option>
-                           <option>26</option>
-                           <option>27</option>
-                           <option>28</option>
-                           <option>29</option>
-                           <option>30</option>
-                           <option>31</option>
-                        </select>
-                        </div>
-                     </div>
-                     <div>
-                     	<div class="input-group">
-			  			<span class="input-group-addon">Mois</span>
-                        <select ng-model="mois">
-                           <option>01</option>
-                           <option>02</option>
-                           <option>03</option>
-                           <option>04</option>
-                           <option>05</option>
-                           <option>06</option>
-                           <option>07</option>
-                           <option>08</option>
-                           <option>09</option>
-                           <option>10</option>
-                           <option>11</option>
-                           <option>12</option>
-                        </select>
-                        </div>
-                     </div>
-                     <div>
-                     	<div class="input-group">
-			  			<span class="input-group-addon">Année</span>
-                        <select ng-model="annee">
-                           <option>2017</option>
-                           <option>2018</option>
-                        </select>
-                        </div>
-                     </div>
-                     <div>
-                     	<div class="input-group">
-			  			<span class="input-group-addon">Heure</span>
-                        <select ng-model="heure">
-                           <option>00</option>
-                           <option>01</option>
-                           <option>02</option>
-                           <option>03</option>
-                           <option>04</option>
-                           <option>05</option>
-                           <option>06</option>
-                           <option>07</option>
-                           <option>08</option>
-                           <option>09</option>
-                           <option>10</option>
-                           <option>11</option>
-                           <option>12</option>
-                           <option>13</option>
-                           <option>14</option>
-                           <option>15</option>
-                           <option>16</option>
-                           <option>17</option>
-                           <option>18</option>
-                           <option>19</option>
-                           <option>20</option>
-                           <option>21</option>
-                           <option>22</option>
-                           <option>23</option>
-                           <option>
-                           </option>
-                        </select>
-                        </div>
-                     </div>
-                     <div>
-                     	<div class="input-group">
-			  			<span class="input-group-addon">Minutes</span>
-                        <select ng-model="minute">
-                           <option>00</option>
-                           <option>05</option>
-                           <option>10</option>
-                           <option>15</option>
-                           <option>20</option>
-                           <option>25</option>
-                           <option>30</option>
-                           <option>35</option>
-                           <option>40</option>
-                           <option>45</option>
-                           <option>50</option>
-                           <option>55</option>
-                           </option>
-                        </select>
-                        </div>
-                     </div>
-                     <div>
-                     	<button type="button" ng-click="rechercheSalle()">recherche</button>
-                     </div>
-                  </div> 
-                   </div>
-                   <div class="row">
-                        <div class="col-6 col-lg-4" ng-repeat="salleL in sallesLibresF.data.items">
-                           <h3>{{salleL}}</h3>
-                        </div>
-                     </div>
-                     <p>{{infoLF}}</p>
-                   
-               </div>
-            </section>
-      </div>
-      <!-- Footer -->
-      <footer id="footer" class="wrapper style1-alt">
-         <div class="inner">
-            <ul class="menu">
-               <li>&copy; Untitled. All rights reserved.</li>
-               <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-            </ul>
-         </div>
-      </footer>
-      <!-- Scripts -->
-      <script src="assets/js/jquery.min.js"></script>
-      <script src="assets/js/jquery.scrollex.min.js"></script>
-      <script src="assets/js/jquery.scrolly.min.js"></script>
-      <script src="assets/js/skel.min.js"></script>
-      <script src="assets/js/util.js"></script>
-      <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-      <script src="assets/js/main.js"></script>
-   </body>
+	<head>
+		<meta name="google-signin-scope" content="profile email">
+		<meta name="google-signin-client_id" content="980678602734-dp37s7s5nicfikmneh1h7pv5fn0240c3.apps.googleusercontent.com">
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<meta charset="utf-8" />
+		<title>CYR</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		<script src="js/app.js"></script>
+		<script src="https://apis.google.com/js/client.js?onload=init"></script>
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
+		<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
+	</head>
+	<body ng-controller="MainCtrl" >
+		<!-- Sidebar -->
+		<section id="sidebar">
+			<div class="inner">
+				<nav>
+					<ul>
+						<li><a href="#intro">Welcome</a></li>
+						<li><a href="#one">Rechercher une salle</a></li>
+						<div id="co" class="g-signin2" data-onsuccess="onSignIn"></div>
+						<script>
+							function onSignIn(googleUser) {
+							  // Useful data for your client-side scripts:
+							  var profile = googleUser.getBasicProfile();
+							  console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+							  console.log('Full Name: ' + profile.getName());
+							  console.log('Given Name: ' + profile.getGivenName());
+							  console.log('Family Name: ' + profile.getFamilyName());
+							  console.log("Image URL: " + profile.getImageUrl());
+							  console.log("Email: " + profile.getEmail());
+							
+							  // The ID token you need to pass to your backend:
+							  var id_token = googleUser.getAuthResponse().id_token;
+							  console.log("ID Token: " + id_token);
+							  
+							  
+							  document.getElementById('visiteur').innerHTML ="Bonjour " + profile.getName() + ".";
+							  document.getElementById('email').innerHTML = profile.getEmail();
+							  document.getElementById('two').style.display = "block";
+							  document.getElementById('deco').style.display = "block";
+							  document.getElementById('co').style.display = "none";
+							  
+							};
+						</script>
+						<a id="deco" href="#" onclick="signOut();" style="display:none;">Sign out</a>
+						<script>
+							function signOut() {
+							  var auth2 = gapi.auth2.getAuthInstance();
+							  auth2.signOut().then(function () {
+							    console.log('User signed out.');
+							  });
+							  
+							  document.getElementById('visiteur').innerHTML = "Se connecter pour réserver une salle";
+							  document.getElementById('email').innerHTML = "";
+							  document.getElementById('two').style.display = "none";
+							     document.getElementById('co').style.display = "block";
+							     document.getElementById('deco').style.display = "none";
+							};
+						</script>
+						<div id="visiteur">Se connecter pour réserver une salle</div>
+						<div id="email" style="display:none;"></div>
+						.
+					</ul>
+				</nav>
+			</div>
+		</section>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Intro -->
+			<section id="intro" class="wrapper style1 fullscreen fade-up">
+				<div class="inner">
+					<h1>Choose Your ROOM  {{info}} </h1>
+					<div class="col-lg-12">
+						<h2>Salles Libres Actullement</h2>
+						<div class="row">
+							<div class="col-6 col-lg-4" ng-repeat="salleL in sallesLibres.data.items">
+								<h3>{{salleL}}</h3>
+							</div>
+						</div>
+						<p>{{infoL}}</p>
+					</div>
+				</div>
+			</section>
+			<section id="two" class="wrapper style3 spotlights" style="display:none;" >
+				<div class="inner">
+					<div id="rechercheChoix">
+						<section id="one">
+							<div class="inner">
+								<div class="col-lg-12 text-center">
+									<div class="row">
+										<div>
+											<div class="input-group">
+												<span class="input-group-addon">Jour</span>
+												<select ng-model="jour">
+													<option>01</option>
+													<option>02</option>
+													<option>03</option>
+													<option>04</option>
+													<option>05</option>
+													<option>06</option>
+													<option>07</option>
+													<option>08</option>
+													<option>09</option>
+													<option>10</option>
+													<option>11</option>
+													<option>12</option>
+													<option>13</option>
+													<option>14</option>
+													<option>15</option>
+													<option>16</option>
+													<option>17</option>
+													<option>18</option>
+													<option>19</option>
+													<option>20</option>
+													<option>21</option>
+													<option>22</option>
+													<option>23</option>
+													<option>24</option>
+													<option>25</option>
+													<option>26</option>
+													<option>27</option>
+													<option>28</option>
+													<option>29</option>
+													<option>30</option>
+													<option>31</option>
+												</select>
+											</div>
+										</div>
+										<div>
+											<div class="input-group">
+												<span class="input-group-addon">Mois</span>
+												<select ng-model="mois">
+													<option>01</option>
+													<option>02</option>
+													<option>03</option>
+													<option>04</option>
+													<option>05</option>
+													<option>06</option>
+													<option>07</option>
+													<option>08</option>
+													<option>09</option>
+													<option>10</option>
+													<option>11</option>
+													<option>12</option>
+												</select>
+											</div>
+										</div>
+										<div>
+											<div class="input-group">
+												<span class="input-group-addon">Année</span>
+												<select ng-model="annee">
+													<option>2017</option>
+													<option>2018</option>
+												</select>
+											</div>
+										</div>
+										<div>
+											<div class="input-group">
+												<span class="input-group-addon">Creneau</span>
+												<select id="creneau" ng-model="creneau">
+													<option>1 - (8h - 9h20)</option>
+													<option>2 - (9h30 - 10h50)</option>
+													<option>3 - (11h - 12h20)</option>
+													<option>4 - (12h30 - 13h50)</option>
+													<option>5 - (14h - 15h20)</option>
+													<option>6 - (15h30 - 16h50)</option>
+													<option>7 - (17h - 18h20)</option>
+													<option>8 - (18h30 - 19h50)</option>
+													<option>
+													</option>
+												</select>
+											</div>
+										</div>
+										<div>
+											<button type="button" ng-click="rechercheSalle()">recherche</button>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12" ng-repeat="salleL in sallesLibresF.data.items">
+										<h3>{{salleL}} </h3>
+										<button ng-click="reserver(salleL)">Reserver</button>
+									</div>
+								</div>
+								<p>{{infoF}}</p>
+							</div>
+						</section>
+					</div>
+				</div>
+			</section>
+		</div>
+		<!-- Footer -->
+		<footer id="footer" class="wrapper style1-alt">
+			<div class="inner">
+				<ul class="menu">
+					<li>&copy; Untitled. All rights reserved.</li>
+					<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+				</ul>
+			</div>
+		</footer>
+		<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/skel.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="assets/js/main.js"></script>
+	</body>
 </html>
 

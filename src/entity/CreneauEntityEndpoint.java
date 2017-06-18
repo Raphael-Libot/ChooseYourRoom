@@ -288,6 +288,8 @@ public class CreneauEntityEndpoint {
 			
 			res.removeAll(tmp);
 			
+			//res.removeAll(execute);
+			
 		} finally {
 			mgr.close();
 		}
@@ -310,17 +312,15 @@ public class CreneauEntityEndpoint {
 		ArrayList<String> tmp = new ArrayList<String>();
 		ArrayList<String> res = new ArrayList<String>(this.listeSalles);
 		
-		try {		
+		try {
 			mgr = getPersistenceManager();
-			Query query = mgr.newQuery(CreneauEntity.class);
-			query.setFilter("dateD==:date");
-			execute = (List<CreneauEntity>) query.execute(date);
-					
+			Query query = mgr.newQuery(CreneauEntity.class,"dateD == date && creneau == creneaup ");
+			query.declareParameters("String date, String creneaup");	
+			execute = (List<CreneauEntity>) query.execute(date, creneau);
+			
 			for(int i = 0; i < execute.size(); i++)
 			{
-				if(execute.get(i).getCreneau().matches(creneau) )
 					tmp.add(execute.get(i).getSalle());
-				
 			}
 			
 			res.removeAll(tmp);
@@ -387,10 +387,10 @@ public class CreneauEntityEndpoint {
 	 * @throws ParseException 
 	 */
 	@ApiMethod(
-	        path = "insertCreneau/{date}/{salle}/{creneau}/{email}",
+	        path = "insertCreneau/{date}/{salle}/{creneau}/{email}/{capacite}",
 	        httpMethod = HttpMethod.GET
 	    )
-	public CreneauEntity insertCreneau(@Named("date") String date, @Named("salle") String salle, @Named("creneau") String creneau, @Named("email") String email) throws ParseException {
+	public CreneauEntity insertCreneau(@Named("date") String date, @Named("salle") String salle, @Named("creneau") String creneau, @Named("email") String email, @Named("capacite") String capacite) throws ParseException {
 		PersistenceManager mgr = getPersistenceManager();
 		
 		String id = ""+email+" "+date+" "+creneau+" "+salle;
@@ -425,11 +425,12 @@ public class CreneauEntityEndpoint {
 			cc.set(Calendar.MINUTE, 30);
 		}
 		
-		Calendar cc2 = cc;
+		Calendar cc2 = Calendar.getInstance();
+		cc2.setTime(cc.getTime());
 		cc2.add(Calendar.HOUR, 1);
 		cc2.add(Calendar.MINUTE, 20);
 		
-		CreneauEntity creneauentity = new CreneauEntity(id, "Reservation de : " +salle, cc.getTime(), cc2.getTime(), salle, creneau);
+		CreneauEntity creneauentity = new CreneauEntity(id, "Reservation de : " +salle, cc.getTime(), cc2.getTime(), salle, creneau,email,capacite);
 		
 		try {
 			if (containsCreneauEntity(creneauentity)) {
@@ -443,5 +444,29 @@ public class CreneauEntityEndpoint {
 	}
 	
 	
+	@SuppressWarnings({ "unchecked", "unused" })
+	@ApiMethod(
+			path = "mesReservation/{email}",
+	        httpMethod = HttpMethod.GET
+	)
+	public CollectionResponse<CreneauEntity> mesReservation(@Named("email") String email) {
+
+		PersistenceManager mgr = null;
+		Cursor cursor = null;
+		List<CreneauEntity> execute = null;
+
+		try {
+			mgr = getPersistenceManager();
+			Query query = mgr.newQuery(CreneauEntity.class);
+			query.setFilter("email == :emailparam");
+			execute = (List<CreneauEntity>) query.execute(email);
+
+		} finally {
+			mgr.close();
+		}
+	
+		
+		return CollectionResponse.<CreneauEntity>builder().setItems(execute).build();
+	}
 	
 }

@@ -42,7 +42,6 @@ app.controller('MainCtrl', function($scope, $http) {
     else if (heureActuelle >= 18.30 && heureActuelle <= 20)
         creneau = 8;
 
-
     $http({
         url: 'https://proweb-158114.appspot.com/_ah/api/creneauentityendpoint/v1/listeSalleLibrescreneau/' + ladate.getFullYear() + "_" + (ladate.getMonth() + 1) + "_" + ladate.getDate() + '/' + creneau,
         method: 'GET'
@@ -61,6 +60,9 @@ app.controller('MainCtrl', function($scope, $http) {
 
 
     $scope.rechercheSalle = function() {
+    	document.getElementById('res').style.display = "block";
+    	document.getElementById('reponse').style.display = "none";
+    	
         creneau = $scope.creneau;
         creneau = creneau.charAt(0);
         moisPropre = $scope.mois;
@@ -69,7 +71,6 @@ app.controller('MainCtrl', function($scope, $http) {
         jourPropre = jourPropre.replace("0", "");
 
         var url = 'https://proweb-158114.appspot.com/_ah/api/creneauentityendpoint/v1/listeSalleLibrescreneau/' + $scope.annee + "_" + moisPropre + "_" + jourPropre + "/" + creneau;
-        alert(url);
         $http({
             url: url,
             method: 'GET'
@@ -90,6 +91,7 @@ app.controller('MainCtrl', function($scope, $http) {
  
 
     $scope.reserver = function(salle) {
+    	
         moisPropre = $scope.mois;
         jourPropre = $scope.jour;
 
@@ -98,12 +100,16 @@ app.controller('MainCtrl', function($scope, $http) {
         creneau = creneau.charAt(0);
 
         profile = document.getElementById('email').innerHTML;
-        //console.log('Full Name: ' + salle + " " + $scope.annee + "_" + moisPropre + "_" + jourPropre + " " + profile + " " + creneau);
 
 
         date = $scope.annee + "_" + moisPropre + "_" + jourPropre;
 
-        urlinsert =  'https://proweb-158114.appspot.com/_ah/api/creneauentityendpoint/v1/insertCreneau/' + date + '/' + salle + '/' + creneau + '/' + profile;
+        capacite = document.getElementById('capacite'); 
+        capacite = capacite.options[capacite.selectedIndex].text;
+        
+        
+        urlinsert =  'https://proweb-158114.appspot.com/_ah/api/creneauentityendpoint/v1/insertCreneau/' + date + '/' + salle + '/' + creneau + '/' + profile + '/' + capacite ;
+        alert(urlinsert);
         
         $http({
             url: urlinsert,
@@ -111,15 +117,60 @@ app.controller('MainCtrl', function($scope, $http) {
         }).then(function successCallback(response) {
 
             if (angular.isUndefined(response)) {
-                alert("bug");
+            	document.getElementById('res').style.display = "none";
+            	document.getElementById('reponse').style.display = "block";
+            	document.getElementById('reponse').innerHTML = "Problème lors de la réservation";
             } else {
-                alert("ok");
+            	document.getElementById('res').style.display = "none";
+            	document.getElementById('reponse').style.display = "block";
+            	document.getElementById('reponse').innerHTML = "Reservation enregistré";
             }
 
         }, function errorCallback(response) {
-            alert("error call back");
+        	document.getElementById('res').style.display = "none";
+        	document.getElementById('reponse').style.display = "block";
+        	document.getElementById('reponse').innerHTML = "Problème lors de la réservation";
         });
 
     };
+    
+    $scope.mesReservation = function(){
+    	
+    	document.getElementById('mesReservation').style.display = "block";
+    	
+    	var email = document.getElementById('email').innerHTML;
+    	email = email.replace("@","%40");
+        $http({
+            url: 'https://proweb-158114.appspot.com/_ah/api/creneauentityendpoint/v1/mesReservation/' + email,
+            method: 'GET'
+        }).then(function successCallback(response) {
+            if (angular.isUndefined(response)) {
+                $scope.mesResas = "Vous n'avez pas de réservation";
+            } else {
+            	$scope.mesResas = response;
+            }
+        }, function errorCallback(response) {
+        	$scope.mesResas = "Vous n'avez pas de réservation - BUG";
+        });
+    	
+    };
 
+    
+    $scope.supprimer  = function(id){
+    	id = id.replace(/@/, '%40');
+    	id = id.replace(/ /, '%20');
+    	
+    	$http({
+            url: 'https://proweb-158114.appspot.com/_ah/api/creneauentityendpoint/v1/creneauentity/' + id,
+            method: 'DELETE'
+        }).then(function successCallback(response) {
+            if (angular.isUndefined(response)) {
+                alert("problème lors de la suppression")
+            } else {
+            	$scope.mesReservation();
+            }
+        }, function errorCallback(response) {
+        	alert("problème lors de la suppression")
+        });
+    };
 });

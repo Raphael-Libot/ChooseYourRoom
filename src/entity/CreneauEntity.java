@@ -18,7 +18,7 @@ public class CreneauEntity {
 	    private String id;
 		
 		@Persistent
-		private String nom; 
+		public static String nom; 
 	 	
 		@Persistent
 	 	private Date dateDebut; 
@@ -40,15 +40,19 @@ public class CreneauEntity {
 	 	@Persistent
 	 	private String creneau; 
 	 	
-	 	//@Persistent
-	 	//private Text description;
+	 	@Persistent
+	 	private String email;
 	 	
-	 	//@Persistent
-	 	//private Boolean reserve;
+	 	@Persistent
+	 	private String capacite; 
+	 	
+	 	@Persistent
+	 	private String capaciteResa; 
+	 	
 	 	
 	 	//private CreneauEntityBuilder creneauEntityBuilder;
 	 	
-	 	public CreneauEntity(String id, String nom, Date dateDebut, Date dateFin,/* Text description,*/ String salle, String creneau ) {
+	 	public CreneauEntity(String id, String nom, Date dateDebut, Date dateFin,/* Text description,*/ String salle, String creneau, String emai, String capaciteResa) {
 	 		this.id = id;
 	 		this.nom = nom;
 	 		
@@ -73,27 +77,16 @@ public class CreneauEntity {
 	 		this.salle = salle;
 	 		//this.reserve = false; 	
 	 		this.creneau = creneau;
+	 		
+	 		this.email = emai;
+	 		this.capacite = "30";
+	 		this.capaciteResa = capaciteResa;
+	 		
 		}
-	 /*
-	 	public CreneauEntity(CreneauEntityBuilder builder){
-	 		this.id = builder.id;
-	 		this.nom = builder.nom;
-	 		this.dateDebut = builder.dateDebut;
-	 		this.dateFin = builder.dateFin;
-	 		//this.description = builder.description;
-	 		this.salle = builder.salle;
-	 		//this.reserve = builder.reserve;
-	 		this.creneau = builder.creneau;
-	 	}*/
-	 	
+
 	 	public CreneauEntity(){
 	 	
 	 	}
-	 	/*
-	 	public CreneauEntityBuilder Builder(){
-	 		return this.creneauEntityBuilder;
-	 	}*/
-	 	
 	 	
 	 	
 	 	public String getId() {
@@ -136,21 +129,6 @@ public class CreneauEntity {
 			this.salle = salle;
 		}
 
-		/*public Text getDescription() {
-			return description;
-		}
-
-		public void setDescription(Text description) {
-			this.description = description;
-		}*/
-
-		/*public Boolean getReserve() {
-			return reserve;
-		}
-
-		public void setReserve(Boolean reserve) {
-			this.reserve = reserve;
-		}*/
 		
 		public String getCreneau() {
 			return creneau;
@@ -159,70 +137,46 @@ public class CreneauEntity {
 		public void setCreneau(String creneau) {
 			this.creneau = creneau;
 		}
-/*
-		public CreneauEntityBuilder getCreneauEntityBuilder() {
-			return creneauEntityBuilder;
+
+		public String getDateD() {
+			return dateD;
 		}
 
-		public void setCreneauEntityBuilder(CreneauEntityBuilder creneauEntityBuilder) {
-			this.creneauEntityBuilder = creneauEntityBuilder;
-		}*/
+		public void setDateD(String dateD) {
+			this.dateD = dateD;
+		}
 
+		public String getDateF() {
+			return dateF;
+		}
 
-/*
-		public static class CreneauEntityBuilder{
-	 	
-	 		private String id;
-			private String nom; 
-		 	private Date dateDebut; 
-		 	private Date dateFin;
-		 	private String salle;
-		 	//private Text description;
-		 	//private Boolean reserve;
-		 	private String creneau;
-	 		
-		 	public CreneauEntityBuilder id(String id){
-		 		this.id=id;
-		 		return this;
-		 	}
-		 	
-		 	public CreneauEntityBuilder nom(String nom){
-		 		this.nom=nom;
-		 		return this;
-		 	}
+		public void setDateF(String dateF) {
+			this.dateF = dateF;
+		}
+
+		public String getEmail() {
+			return email;
+		}
+
+		public void setEmail(String email) {
+			this.email = email;
+		}
+
+		public String getCapacite() {
+			return capacite;
+		}
+
+		public void setCapacite(String capacite) {
+			this.capacite = capacite;
+		}
+
+		public String getCapaciteResa() {
+			return capaciteResa;
+		}
+
+		public void setCapaciteResa(String capaciteResa) {
+			this.capaciteResa = capaciteResa;
+		}
 		
-			public CreneauEntityBuilder dateDebut(Date dateDebut) {
-				this.dateDebut = dateDebut;
-				return this;
-			}
 		
-			public CreneauEntityBuilder dateFin(Date dateFin) {
-				this.dateFin = dateFin;
-				return this;
-			}
-		
-			/*public CreneauEntityBuilder description(Text description) {
-				this.description = description;
-				return this;
-			}*/
-		/*
-			public CreneauEntityBuilder salle(String salle) {
-				this.salle = salle;
-				return this;
-			}*/
-		
-			/*public CreneauEntityBuilder reserve(Boolean reserve) {
-				this.reserve = reserve;
-				return this;
-			}*/
-			/*
-			public CreneauEntityBuilder creneau(String creneau) {
-				this.creneau = creneau;
-				return this;
-			}
-			
-			public CreneauEntity build() {
-	            return new CreneauEntity(this);
-	        }*/
-	 	//}
 }

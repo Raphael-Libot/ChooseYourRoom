@@ -127,7 +127,7 @@ public class AddServlet extends HttpServlet {
                 			int creaneau = premierCreneau+i;
                 			String idi = id;
                 			idi = idi +" c" + i;
-                		CreneauEntity creneauEntity = new CreneauEntity(idi,nom,dateDebut,dateFin,/*description,*/salle,""+creaneau);   	
+                		CreneauEntity creneauEntity = new CreneauEntity(idi,nom,dateDebut,dateFin,/*description,*/salle,""+creaneau,"admin","30");   	
 	                	pm.makePersistent(creneauEntity);
 	                	resp.getWriter().println("-----ok------ creneau" + creaneau);
 	                	}

@@ -70,6 +70,7 @@
 							  document.getElementById('two').style.display = "block";
 							  document.getElementById('deco').style.display = "block";
 							  document.getElementById('co').style.display = "none";
+							  //document.getElementById('mesReservation').style.display = "block";
 							  document.getElementById('mesResa').style.display = "block";
 							};
 						</script>
@@ -83,7 +84,7 @@
 		<!-- Wrapper -->
 		<div id="wrapper">
 		<!-- Intro -->
-		<section class="wrapper">
+		<section id="intro" class="wrapper">
 			<div class="inner">
 				<h1>Choose Your ROOM  {{info}} </h1>
 				<div class="col-lg-12">
@@ -107,7 +108,7 @@
 									<div class="col-lg-2">
 										<div class="input-group">
 											<span class="input-group-addon">Jour</span>
-											<select ng-model="jour">
+											<select ng-model="jour" >
 												<option>01</option>
 												<option>02</option>
 												<option>03</option>
@@ -145,7 +146,7 @@
 									<div class="col-lg-2"> 
 										<div class="input-group">
 											<span class="input-group-addon">Mois</span>
-											<select ng-model="mois">
+											<select ng-model="mois" >
 												<option>01</option>
 												<option>02</option>
 												<option>03</option>
@@ -164,7 +165,7 @@
 									<div class="col-lg-2">
 										<div class="input-group">
 											<span class="input-group-addon">Année</span>
-											<select ng-model="annee">
+											<select ng-model="annee" >
 												<option>2017</option>
 												<option>2018</option>
 											</select>
@@ -173,7 +174,7 @@
 									<div class="col-lg-4">
 										<div class="input-group">
 											<span class="input-group-addon">Creneau</span>
-											<select id="creneau" ng-model="creneau">
+											<select id="creneau" ng-model="creneau" >
 												<option>1 - (8h - 9h20)</option>
 												<option>2 - (9h30 - 10h50)</option>
 												<option>3 - (11h - 12h20)</option>
@@ -188,8 +189,8 @@
 									<div class="col-lg-2">
 										<div class="input-group">
 											<span class="input-group-addon">Nb Places </span>
-											<select id="capacite" ng-model="capacite">
-												<option>1</option>
+											<select id="capacite" ng-model="capacite" >
+															<option>1</option>
 															<option>2</option>
 															<option>3</option>
 															<option>4</option>
@@ -231,12 +232,17 @@
 								</div>
 								<div class="col-lg-4"></div>
 							</div>
+							<br>
 							<div id="res" class="row" style="display:none">
 								<div class="col-lg-12" ng-repeat="salleL in sallesLibresF.data.items">
 									<div class="row">
-										<h3 class="col-lg-6">{{salleL}} </h3>
-										<div class="col-lg-6">
-											<button ng-click="reserver(salleL)">Reserver</button>
+										<h3 class="col-lg-2">{{salleL}}</h3>
+										<h3 class="col-lg-2">Adresse email :</h3>
+										<h3 class="col-lg-6"> 
+											<input id="emails" type="text" name="emails" ng-model="emails">
+										</h3>
+										<div class="col-lg-2">
+											<button ng-click="reserver(salleL,emails)">Reserver</button>
 										</div>
 									</div>
 								</div>
@@ -290,6 +296,7 @@
 				<ul class="menu">
 				
 					<li> <a href="https://github.com/Raphael-Libot/ChooseYourRoom"> <img src="/images/GitHub-Mark-64px.png" alt= "Code GITHUB"></a>  </li>
+					<li> <a href="https://apis-explorer.appspot.com/apis-explorer/?base=https://proweb-158114.appspot.com/_ah/api#p/creneauentityendpoint/v1/"> <img src="/images/google-chrome-developer-tools_42499.png" alt= "API Explorer"></a>  </li>
 					<li> Vincent Chesneau </li>
 					<li> Antoine Léthoré</li>
 					<li> Raphaël Libot</li>

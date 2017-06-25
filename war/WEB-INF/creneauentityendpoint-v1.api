@@ -28,6 +28,31 @@
   "ownerName" : "mycompany.com",
   "packagePath" : "services",
   "methods" : {
+    "creneauentityendpoint.listCreneauEntity" : {
+      "path" : "creneauentity",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "entity.CreneauEntityEndpoint.listCreneauEntity",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "creneauentityendpoint.getCreneauEntity" : {
       "path" : "creneauentity/{id}",
       "httpMethod" : "GET",
@@ -102,42 +127,6 @@
         "body" : "empty"
       }
     },
-    "creneauentityendpoint.creneauToday" : {
-      "path" : "creneauToday",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "entity.CreneauEntityEndpoint.creneauToday",
-      "request" : {
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "creneauentityendpoint.creneauEntityEndpoint.listeSalleLibres" : {
-      "path" : "listeSalleLibres/{date}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "entity.CreneauEntityEndpoint.listeSalleLibres",
-      "request" : {
-        "parameters" : {
-          "date" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "creneauentityendpoint.creneauEntityEndpoint.listeSalleLibresCreneau" : {
       "path" : "listeSalleLibrescreneau/{date}/{creneau}",
       "httpMethod" : "GET",
@@ -153,27 +142,6 @@
             "required" : true
           },
           "creneau" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "creneauentityendpoint.creneauEntityEndpoint.listeSalleOccupees" : {
-      "path" : "listeSalleOccupees/{date}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "entity.CreneauEntityEndpoint.listeSalleOccupees",
-      "request" : {
-        "parameters" : {
-          "date" : {
             "type" : "string",
             "required" : true
           }
@@ -241,35 +209,25 @@
       "response" : {
         "body" : "autoTemplate(backendResponse)"
       }
-    },
-    "creneauentityendpoint.listCreneauEntity" : {
-      "path" : "creneauentity",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "entity.CreneauEntityEndpoint.listCreneauEntity",
-      "request" : {
-        "parameters" : {
-          "cursor" : {
-            "type" : "string",
-            "required" : false
-          },
-          "limit" : {
-            "type" : "int32",
-            "required" : false
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
     }
   },
   "descriptor" : {
     "schemas" : {
+      "CollectionResponse_CreneauEntity" : {
+        "id" : "CollectionResponse_CreneauEntity",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "CreneauEntity"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      },
       "CreneauEntity" : {
         "id" : "CreneauEntity",
         "type" : "object",
@@ -311,21 +269,6 @@
           }
         }
       },
-      "CollectionResponse_CreneauEntity" : {
-        "id" : "CollectionResponse_CreneauEntity",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "CreneauEntity"
-            }
-          },
-          "nextPageToken" : {
-            "type" : "string"
-          }
-        }
-      },
       "CollectionResponse_String" : {
         "id" : "CollectionResponse_String",
         "type" : "object",
@@ -343,6 +286,11 @@
       }
     },
     "methods" : {
+      "entity.CreneauEntityEndpoint.listCreneauEntity" : {
+        "response" : {
+          "$ref" : "CollectionResponse_CreneauEntity"
+        }
+      },
       "entity.CreneauEntityEndpoint.getCreneauEntity" : {
         "response" : {
           "$ref" : "CreneauEntity"
@@ -366,22 +314,7 @@
       },
       "entity.CreneauEntityEndpoint.removeCreneauEntity" : {
       },
-      "entity.CreneauEntityEndpoint.creneauToday" : {
-        "response" : {
-          "$ref" : "CollectionResponse_CreneauEntity"
-        }
-      },
-      "entity.CreneauEntityEndpoint.listeSalleLibres" : {
-        "response" : {
-          "$ref" : "CollectionResponse_String"
-        }
-      },
       "entity.CreneauEntityEndpoint.listeSalleLibresCreneau" : {
-        "response" : {
-          "$ref" : "CollectionResponse_String"
-        }
-      },
-      "entity.CreneauEntityEndpoint.listeSalleOccupees" : {
         "response" : {
           "$ref" : "CollectionResponse_String"
         }
@@ -392,11 +325,6 @@
         }
       },
       "entity.CreneauEntityEndpoint.mesReservation" : {
-        "response" : {
-          "$ref" : "CollectionResponse_CreneauEntity"
-        }
-      },
-      "entity.CreneauEntityEndpoint.listCreneauEntity" : {
         "response" : {
           "$ref" : "CollectionResponse_CreneauEntity"
         }

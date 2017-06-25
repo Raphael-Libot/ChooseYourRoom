@@ -217,7 +217,7 @@ public class CreneauEntityEndpoint {
 	private static PersistenceManager getPersistenceManager() {
 		return PMF.get().getPersistenceManager();
 	}
-
+/*
 	@SuppressWarnings({ "unchecked", "unused" })
 	@ApiMethod(name = "creneauToday")
 	public CollectionResponse<CreneauEntity> creneauToday() {
@@ -246,9 +246,8 @@ public class CreneauEntityEndpoint {
 		return CollectionResponse.<CreneauEntity>builder().setItems(execute).build();
 	}
 	
-	//2017-05-31T11:00:00
-	//@ApiMethod(name = "listeSalleLibres")
-	
+*/
+/*	
 	
 	@ApiMethod(
 	        path = "listeSalleLibres/{date}",
@@ -297,7 +296,7 @@ public class CreneauEntityEndpoint {
 		
 		return CollectionResponse.<String>builder().setItems(res).build();
 	}
-	
+*/	
 	
 	
 	@ApiMethod(
@@ -332,7 +331,7 @@ public class CreneauEntityEndpoint {
 			return CollectionResponse.<String>builder().setItems(res).build();
 	}
 	
-	
+/*	
 	@ApiMethod(
 	        path = "listeSalleOccupees/{date}",
 	        httpMethod = HttpMethod.GET
@@ -374,7 +373,7 @@ public class CreneauEntityEndpoint {
 		
 		return CollectionResponse.<String>builder().setItems(tmp).build();
 	}
-	
+	*/
 	
 	
 	/**

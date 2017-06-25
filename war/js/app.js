@@ -90,8 +90,7 @@ app.controller('MainCtrl', function($scope, $http) {
 
  
 
-    $scope.reserver = function(salle) {
-    	
+    $scope.reserver = function(salle,emails) {
         moisPropre = $scope.mois;
         jourPropre = $scope.jour;
 
@@ -109,7 +108,6 @@ app.controller('MainCtrl', function($scope, $http) {
         
         
         urlinsert =  'https://proweb-158114.appspot.com/_ah/api/creneauentityendpoint/v1/insertCreneau/' + date + '/' + salle + '/' + creneau + '/' + profile + '/' + capacite ;
-        alert(urlinsert);
         
         $http({
             url: urlinsert,
